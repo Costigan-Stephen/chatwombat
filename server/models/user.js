@@ -38,25 +38,7 @@ const userSchema = new Schema({
 
 });
 
-/** Todo: fill out functions
- *  Need user auth working first I think
- */
-userSchema.methods.addPost = function(post) {
 
-};
-
-userSchema.methods.deletePost = function(postId) {
-
-};
-
-/** Todo: fill out functions */
-userSchema.methods.addComment = function(post) {
-
-};
-
-userSchema.methods.deleteComment = function(postId) {
-
-};
 
 userSchema.methods.follow = function(user) {
     const userFollows = [...this.following.users];
