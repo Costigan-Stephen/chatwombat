@@ -1,0 +1,17 @@
+.fas {
+    color: white;
+    font-size: 20pt;
+}
+
+.fas:hover {
+    color: rgb(134, 225, 255);
+    font-size: 20pt;
+    transform: scale(1.2);
+}
+
+.iconlist {
+    padding-top: 10px;
+    border-top: 2pt solid white;
+    display: flex;
+    justify-content: space-around;
+}

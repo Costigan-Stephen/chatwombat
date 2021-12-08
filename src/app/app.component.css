@@ -1,0 +1,50 @@
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100vw;
+}
+
+#content {
+  width: 50%;
+  padding: 50px;
+}
+
+#sidebar {
+  padding-left: 70px;
+  background-color: #202020;
+  width: 30%;
+}
+
+#sideMenu {
+  padding: 50px;
+  position: fixed;
+}
+
+.title {
+  left: 5px;
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.logo:hover {
+  -webkit-filter: brightness(0) saturate(100%) invert(74%) sepia(18%) saturate(867%) hue-rotate(157deg) brightness(105%) contrast(102%);
+          filter: brightness(0) saturate(100%) invert(74%) sepia(18%) saturate(867%) hue-rotate(157deg) brightness(105%) contrast(102%);
+}
+
+.box-footer {
+  margin-left: -50px;
+  padding: 50px;
+  position: fixed;
+  bottom: 0;
+  padding-right: 21%;
+  border-top: 3pt solid #444444;
+  background-color: #2b2b2b;
+}
+/*# sourceMappingURL=app.component.css.map */

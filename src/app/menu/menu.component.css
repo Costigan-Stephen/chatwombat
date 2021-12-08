@@ -1,0 +1,22 @@
+.fas {
+  color: white;
+  font-size: 20pt;
+}
+
+.fas:hover {
+  color: #86e1ff;
+  font-size: 20pt;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.iconlist {
+  padding-top: 10px;
+  border-top: 2pt solid white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+/*# sourceMappingURL=menu.component.css.map */

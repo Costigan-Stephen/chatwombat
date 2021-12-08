@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "chat-item.component.scss"
+    ],
+    "names": [],
+    "file": "chat-item.component.css"
+}
