@@ -113,3 +113,31 @@
          error.httpStatusCode = 500;
          return next(error);
      });
+
+ const io = require('socket.io')(server)
+
+ io.on('connection', socket => {
+     console.log('Client connected!')
+
+     socket
+         .on('disconnect', () => {
+             console.log('A client disconnected!')
+         })
+         .on('newUser', (username, time) => {
+             // A new user logs in.
+             const message = `${username} has joined the channel, act natural!`
+             socket.broadcast.emit('userJoin', {
+                 /** CONTENT for the emit **/
+                 message,
+                 time,
+                 from: 'admin',
+             })
+         })
+         .on('message', data => {
+             // Receive a new message
+             console.log('Message received')
+             socket.broadcast.emit('newMessage', {
+                 ...data,
+             });
+         });
+ });
