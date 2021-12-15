@@ -1,0 +1,14 @@
+.chat {
+    display: flex;
+    justify-content: center;
+}
+
+.panel {
+    color: white;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    border: 1pt solid;
+    padding: 20px 40px;
+    width: 500px;
+    margin-top: 250px;
+    text-align: center;
+}

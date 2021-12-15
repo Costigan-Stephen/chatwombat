@@ -1,0 +1,19 @@
+// Variables
+$chatSize: 150px;
+$contentSize: calc(100vh - $chatSize);
+$sidebar: 400px;
+$sidebarSize: calc(100vw - ($sidebar * 2));
+.box-footer {
+    padding: 50px;
+    height: $chatSize;
+    position: fixed;
+    bottom: 0;
+    margin-right: $sidebar;
+    margin-left: -20px;
+    border-top: 3pt solid rgb(68, 68, 68);
+    background-color: rgb(43, 43, 43);
+}
+
+.chat {
+    height: $contentSize;
+}

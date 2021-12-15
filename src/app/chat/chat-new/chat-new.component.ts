@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { URLSearchParams, QueryEncoder } from '@angular/http';
-import { Contact } from '../contact.model';
-import { ContactService } from '../contact.service';
+
+import { Contact } from '../../contacts/contact.model';
+import { ContactService } from '../../contacts/contact.service';
 
 @Component({
-  selector: 'app-contact-edit',
-  templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.scss']
+  selector: 'app-chat-new',
+  templateUrl: './chat-new.component.html',
+  styleUrls: ['./chat-new.component.scss']
 })
-export class ContactEditComponent implements OnInit {
+export class ChatNewComponent implements OnInit {
 
   contact?: Contact; 
   originalContact?: Contact; 
@@ -22,8 +21,6 @@ export class ContactEditComponent implements OnInit {
   contactSelf: boolean;
   editMode: boolean = false;
 
-  selectedContact: Contact;
-  
   constructor(
     private contactService: ContactService,
     private router: Router,
@@ -35,9 +32,6 @@ export class ContactEditComponent implements OnInit {
     this.contactAdded = null;
     this.route.params.subscribe((params: Params) => {
       this.id = params.id;
-      console.log("Route: " + this.route);
-      console.log("Params: " + JSON.stringify(params));
-      console.log("ID: "+this.id);
       if (!this.id) {
         this.editMode = false;
         return;
@@ -49,7 +43,7 @@ export class ContactEditComponent implements OnInit {
       this.editMode = true;
       this.contact = JSON.parse(JSON.stringify(this.originalContact));
       if (this.contact?.group && this.contact?.group?.length > 0) 
-        this.groupContacts = JSON.parse(JSON.stringify(this.originalContact.group)); 
+        this.groupContacts = JSON.parse(JSON.stringify(this.originalContact.group));  
     });
   }
 
@@ -59,6 +53,8 @@ export class ContactEditComponent implements OnInit {
     this.groupContacts.splice(index, 1);
   }
 
+  onCancel(){ this.router.navigate(['contacts']); }
+
   onSubmit(form: NgForm): void{    
     const value = form.value;
     const newContact = new Contact(value.id, value.name, value.email, value.phone, value.imageUrl, this.groupContacts);
@@ -67,7 +63,7 @@ export class ContactEditComponent implements OnInit {
     } else {
       this.contactService.addContact(newContact);
     }
-    this.router.navigate(['chat/added']);
+    this.router.navigate(['chat/'+this.id]);
   }
 
   isInvalidContact(newContact: Contact) {
@@ -99,5 +95,4 @@ export class ContactEditComponent implements OnInit {
     this.groupContacts.push(selectedContact);
     this.contactAdded = true;
   }
-
 }

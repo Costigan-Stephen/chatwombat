@@ -1,143 +1,97 @@
- const path = require('path');
- require('custom-env').env('staging');
- const PORT = process.env.PORT || 3000;
+// Env Variables
+const path = require('path');
+require('custom-env').env('staging');
 
- const express = require('express');
- const mongoose = require('mongoose');
- const session = require('express-session');
- const mongoDBStore = require('connect-mongodb-session')(session);
- const bodyParser = require('body-parser');
- const flash = require('connect-flash');
- const multer = require('multer');
+// Get dependencies
+var express = require('express');
+var http = require('http');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+const mongoose = require('mongoose');
 
- const User = require('./models/user');
- const authCtrl = require('./controllers/auth'); // For my random generator testing
- const errorController = require('./controllers/error');
 
- const MONGO_USER = process.env.DB_USER;
- const MONGO_PASS = process.env.DB_PASS;
+// import the routing file to handle the default (index) route
+// ..................................................................................//
+var index = require('./server/routes/app');
+const messageRoutes = require('./server/routes/chat');
+const contactRoutes = require('./server/routes/contacts');
+const userRoutes = require('./server/routes/user');
 
- const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/chatwombat"
+var app = express(); // create an instance of express
 
- const store = new mongoDBStore({
-     uri: MONGODB_URL,
-     collection: 'sessions'
- });
 
- const fileStorage = multer.diskStorage({
-     destination: (req, file, cb) => {
-         cb(null, 'images');
-     },
-     filename: (req, file, cb) => {
-         cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-     }
- });
+// .................................. REMOTE MONGODB ..................................//
+// const MONGO_USER = process.env.DB_USER;
+// const MONGO_PASS = process.env.DB_PASS;
+// const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/cms"
 
- const fileFilter = (req, file, cb) => {
-     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
-         cb(null, true);
-     } else {
-         cb(null, false);
-     }
- };
+// mongoose.connect(MONGODB_URL)
+//     .then(() => {
+//         console.log("Connection to the database was successful")
+//     })
+//     .catch(() => {
+//         console.log("Connection to the database failed!");
+//     });
+// .................................. LOCAL MONGODB ..................................//
+const MONGODB_LOCAL = "mongodb://localhost:27017/cms";
 
- const app = express();
- const mainRouter = require('./routes/main');
- const userRouter = require('./routes/user');
- const authRouter = require('./routes/auth');
+// establish a connection to the mongo database
+mongoose.connect(MONGODB_LOCAL, { useNewUrlParser: true }, (err, res) => {
+    if (err) {
+        console.log('Connection failed: ' + err);
+    } else {
+        console.log('Connected to database!');
+    }
+});
+// .................................. END MONGODB ..................................//
 
- app.set('views', 'views');
- app.use(bodyParser.urlencoded({ extended: false }));
- app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
- app.use(express.static(path.join(__dirname, 'public')));
- app.use('/images', express.static(path.join(__dirname, 'images')));
- app.use(
-     session({
-         secret: 'my secret',
-         resave: false,
-         saveUninitialized: false,
-         store: store
-     })
- );
+// Tell express to use the following parsers for POST data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(cookieParser());
 
- app.use(flash());
+app.use(logger('dev')); // Tell express to use the Morgan logger
 
- app.use((req, res, next) => {
-     res.locals.isAuthenticated = req.session.isLoggedIn;
-     next();
- });
+// Add support for CORS
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET, POST, PATCH, PUT, DELETE, OPTIONS'
+    );
+    next();
+});
 
- app.use((req, res, next) => {
-     if (!req.session.user) {
-         return next();
-     }
-     User.findById(req.session.user._id)
-         .then(user => {
-             if (!user) {
-                 return next();
-             }
-             req.user = user;
-             next();
-         })
-         .catch(err => {
-             const error = new Error(err);
-             error.httpStatusCode = 500;
-             return next(error);
-         });
- });
+// Tell express to use the specified director as the
+// root directory for your web site
+app.use(express.static(path.join(__dirname, 'dist/cms')));
 
- app.use(mainRouter);
- app.use(userRouter);
- app.use(authRouter);
+// Tell express to map the default route ('/') to the index route
+app.use('/', index);
+app.use('/messages', messageRoutes);
+app.use('/contacts', contactRoutes);
+// app.use('/user', userRoutes);
 
- app.get('/500', errorController.get500);
+// Tell express to map all other non-defined routes back to the index page
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/cms/index.html'));
+});
 
- app.use(errorController.get404);
+// Define the port address and tell express to use this port
+const port = process.env.PORT || '3000';
+app.set('port', port);
 
- app.use((error, req, res, next) => {
-     res.status(500).render('500', {
-         pageTitle: 'An Error Occurred',
-         path: '/500',
-         isAuthenticated: req.session.isLoggedIn,
-         user: req.user
-     });
- });
+// Create HTTP server.
+const server = http.createServer(app);
 
- mongoose
-     .connect(MONGODB_URL)
-     .then(result => {
-         app.listen(PORT);
-     })
-     .catch(err => {
-         const error = new Error(err);
-         error.httpStatusCode = 500;
-         return next(error);
-     });
-
- const io = require('socket.io')(server)
-
- io.on('connection', socket => {
-     console.log('Client connected!')
-
-     socket
-         .on('disconnect', () => {
-             console.log('A client disconnected!')
-         })
-         .on('newUser', (username, time) => {
-             // A new user logs in.
-             const message = `${username} has joined the channel, act natural!`
-             socket.broadcast.emit('userJoin', {
-                 /** CONTENT for the emit **/
-                 message,
-                 time,
-                 from: 'admin',
-             })
-         })
-         .on('message', data => {
-             // Receive a new message
-             console.log('Message received')
-             socket.broadcast.emit('newMessage', {
-                 ...data,
-             });
-         });
- });
+// Tell the server to start listening on the provided port
+server.listen(port, function() {
+    console.log('API running on localhost: ' + port)
+});

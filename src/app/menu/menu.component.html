@@ -1,11 +1,24 @@
-<ul class="list-unstyled iconlist">
-    <li class="active">
-        <a href="chat/newchat"><i class="fas fa-comment-medical"></i></a>
-    </li>
-    <li>
-        <a href="chat/newcontact"><i class="fas fa-user-plus"></i></a>
-    </li>
-    <li>
-        <a href="chat/settings"><i class="fas fa-cog"></i></a>
-    </li>
-</ul>
+<div class="menu">
+    <div class="logo">
+        <img src="../assets/images/wombat.svg" width="50" height="50" class="d-inline-block" alt="" style=" padding-top: -15px;">
+        <h1 class="title">Chat Wombat</h1>
+    </div>
+    <div class="convos">
+        <div *ngIf="conversations?.length < 1" class="noconvo">
+            <h2>No conversations</h2>
+            <a class="btn btn-cust" href="chat/newchat">Let's start one!</a>
+        </div>
+    </div>
+
+    <ul class="list-unstyled iconlist">
+        <li class="active">
+            <a href="chat/newchat"><i class="fas fa-comment-medical"></i></a>
+        </li>
+        <li>
+            <a href="chat/contacts/new"><i class="fas fa-user-plus"></i></a>
+        </li>
+        <li>
+            <a (click)="settings()"><i class="fas fa-cog"></i></a>
+        </li>
+    </ul>
+</div>

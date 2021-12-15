@@ -16,28 +16,29 @@ $sidebarSize: calc(100vw - ($sidebar * 2));
     width: $sidebarSize;
     padding: 20px 20px;
     overflow-y: scroll;
-    height: $contentSize;
+    // height: $contentSize;
 }
 
 #sidebar {
-    padding-left: 20px;
+    padding: 0 20px;
     background-color: rgb(32, 32, 32);
-    max-width: 400px;
-    width: 400px;
+    max-width: $sidebar;
+    width: $sidebar;
 }
 
 #sideMenu {
     padding: 30px 30px;
-    margin: 30px 20px;
+    margin: 30px auto;
     position: fixed;
     max-width: 350px;
 }
 
 #members {
     content: "";
-    padding-right: 70px;
+    padding: 0 20px;
     background-color: #202020;
-    width: 400px;
+    width: $sidebar;
+    max-width: $sidebar;
 }
 
 .title {
@@ -49,30 +50,12 @@ $sidebarSize: calc(100vw - ($sidebar * 2));
     font-weight: bold;
 }
 
-.logo {
-    position: relative;
-    top: -10px;
-}
-
-.logo:hover {
-    filter: brightness(0) saturate(100%) invert(74%) sepia(18%) saturate(867%) hue-rotate(157deg) brightness(105%) contrast(102%);
-}
-
-.box-footer {
-    padding: 50px;
-    height: $chatSize;
-    position: fixed;
-    bottom: 0;
-    margin-right: 400px;
-    margin-left: 400px;
-    border-top: 3pt solid rgb(68, 68, 68);
-    background-color: rgb(43, 43, 43);
-}
-
 .panel {
     background-color: rgba($color: #333333, $alpha: 0.4);
     border: 1pt solid;
     margin-top: 20px;
+    height: $contentSize;
+    width: 100%;
 }
 
 .hex {

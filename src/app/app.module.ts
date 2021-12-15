@@ -17,6 +17,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatListComponent } from './chat/chat-list/chat-list.component';
 import { ChatItemComponent } from './chat/chat-item/chat-item.component';
+import { ChatNewComponent } from './chat/chat-new/chat-new.component';
 
 // DIRECTIVES
 import { HomeComponent } from './home/home.component';
@@ -32,6 +33,8 @@ import { LoggedinComponent } from './loggedin/loggedin.component';
 import { LoggedoutComponent } from './loggedout/loggedout.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
+import { ContactSuccessComponent } from './contacts/contact-success/success.component';
+
 
 
 
@@ -53,7 +56,9 @@ import { RegisterComponent } from './register/register.component';
     LoggedinComponent,
     LoggedoutComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChatNewComponent,
+    ContactSuccessComponent
   ],
   imports: [
     BrowserModule,

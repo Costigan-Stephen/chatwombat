@@ -1,0 +1,31 @@
+<span class="chat">
+    <div class="form-group panel">
+        <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <h1>Participants</h1>
+
+        
+
+        <div class="row" id="groupList" style="min-height: 3rem;" dnd-droppable [dropZones]="['contactGroup']" (onDropSuccess)="addToGroup($event)">
+<div *ngFor="let contact of groupContacts; let i = index">
+    <div>
+        <app-contact-item class="col-sm-11" [contact]="contact"></app-contact-item>
+        <button class="btn btn-danger col-sm-2 deleteButton" (click)="onRemoveItem(i)">X</button>
+    </div>
+</div>
+<span class="dragMsg" *ngIf="groupContacts?.length < 1">Drag contacts here to start a conversation!</span>
+</div>
+<div class="row">
+    <div class="col-xs-12 btn-toolbar">
+        <button class="btn btn-cust" [disabled]="!f.valid" type="submit">Start</button>
+    </div>
+</div>
+
+</form>
+</div>
+</span>
+<!-- Error Checking -->
+<div class="notify">
+    <div class="alert alert-danger" *ngIf="contactAdded == false && contactSelf == false">Contact cannot be added because it’s already in the conversation.</div>
+    <div class="alert alert-success" *ngIf="contactAdded">Contact added Successfully.</div>
+</div>
+<!-- End Error Checking -->

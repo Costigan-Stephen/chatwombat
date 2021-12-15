@@ -1,1 +1,62 @@
-<p>contact-edit works!</p>
+<span class="chat">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div *ngIf="!contact?.name">
+                <h1>New Contact</h1>
+            </div>
+            <div *ngIf="contact?.name">
+                <h1>Edit Contact</h1>
+            </div>
+            <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" [ngModel]="contact?.name" #name="ngModel" id="name" class="form-control required" size="120" max="120" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" [ngModel]="contact?.email" #email="ngModel" class="form-control required" size="120" max="255" required>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="email.touched && !email.valid">Enter a valid email address.</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*" name="phone" [ngModel]="contact?.phone" #phone="ngModel" class="form-control invalid" size="150" max="255">
+
+                    </div>
+                    <div class="alert alert-danger" *ngIf="phone.touched && !phone.valid">Enter a valid phone number.</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <div style="background-color: darkgray; padding: 5px;" ng-show="image.length">
+                            <img [src]="imageUrl.value" alt="{{ name.value }}" class="img-responsive" style="max-height: 200px; margin-left: auto; margin-right: auto; ">
+                        </div>
+                        <label for="imageUrl">Image URL:</label>
+                        <input type="text" id="imageUrl" name="imageUrl" [ngModel]="contact?.imageUrl" #imageUrl="ngModel" class="form-control" size="150" max="255" ng-model="image">
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" *ngIf="(!name.valid && name.touched)||(!email.valid && email.touched)">The Name and Email fields are required.</div>
+
+                <div class="row">
+                    <div class="col-xs-12 btn-toolbar">
+                        <div *ngIf="!contact?.name">
+                            <button class="btn btn-cust" [disabled]="!f.valid" type="submit">Add Contact</button>
+                        </div>
+                        <div *ngIf="contact?.name">
+                            <button class="btn btn-cust" [disabled]="!f.valid" type="submit">Update Contact</button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</span>

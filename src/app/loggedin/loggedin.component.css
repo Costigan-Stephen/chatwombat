@@ -12,7 +12,6 @@
   width: calc(100vw - ($sidebar * 2));
   padding: 20px 20px;
   overflow-y: scroll;
-  height: calc(100vh - $chatSize);
 }
 
 #sidebar {
@@ -53,17 +52,6 @@
 .logo:hover {
   -webkit-filter: brightness(0) saturate(100%) invert(74%) sepia(18%) saturate(867%) hue-rotate(157deg) brightness(105%) contrast(102%);
           filter: brightness(0) saturate(100%) invert(74%) sepia(18%) saturate(867%) hue-rotate(157deg) brightness(105%) contrast(102%);
-}
-
-.box-footer {
-  padding: 50px;
-  height: 150px;
-  position: fixed;
-  bottom: 0;
-  margin-right: 400px;
-  margin-left: 400px;
-  border-top: 3pt solid #444444;
-  background-color: #2b2b2b;
 }
 
 .panel {

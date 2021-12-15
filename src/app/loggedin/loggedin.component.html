@@ -2,16 +2,12 @@
 
     <nav id="sidebar" class="hex">
         <div id="sideMenu" class="panel">
-            <span class="logo">
-                <img src="../assets/images/wombat.svg" width="50" height="50" class="d-inline-block" alt="" style=" padding-top: -15px;">
-                <h1 class="title">Chat Wombat</h1>
-            </span>
-
             <app-menu></app-menu>
         </div>
     </nav>
     <div id="content" class="chatback">
-        <app-chat></app-chat>
+        <!-- <app-chat></app-chat> -->
+        <router-outlet></router-outlet>
     </div>
     <div id="members" class="hex">
         <div id="sideMenu" class="panel">
@@ -19,13 +15,4 @@
         </div>
     </div>
 
-    <div class="box-footer">
-        <form action="#" method="post">
-            <div class="input-group"> <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                <span class="input-group-btn"> 
-                    <button type="button" class="btn btn-primary btn-flat"><i class="fas fa-paper-plane"></i></button> 
-                </span>
-            </div>
-        </form>
-    </div>
 </div>

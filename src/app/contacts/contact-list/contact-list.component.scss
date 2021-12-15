@@ -1,6 +1,8 @@
+$chatSize: 280px;
+$contentSize: calc(100vh - $chatSize);
 .contacts {
     overflow-y: scroll;
-    max-height: 80vh;
+    height: $contentSize;
     padding: 10px;
     margin: 10px;
     background-color: rgba(#111, 0.5);

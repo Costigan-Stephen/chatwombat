@@ -1,1 +1,15 @@
-/* No CSS *//*# sourceMappingURL=chat.component.css.map */
+.box-footer {
+  padding: 50px;
+  height: 150px;
+  position: fixed;
+  bottom: 0;
+  margin-right: 400px;
+  margin-left: -20px;
+  border-top: 3pt solid #444444;
+  background-color: #2b2b2b;
+}
+
+.chat {
+  height: calc(100vh - $chatSize);
+}
+/*# sourceMappingURL=chat.component.css.map */
