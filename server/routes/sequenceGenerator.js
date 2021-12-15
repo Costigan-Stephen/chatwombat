@@ -3,6 +3,8 @@ var Sequence = require('../models/sequence');
 var maxDocumentId;
 var maxMessageId;
 var maxContactId;
+var maxUserId;
+var maxConversationId;
 var sequenceId = "61a1ec1fb5999f70d6ed8de3";
 
 function SequenceGenerator() {
@@ -20,6 +22,8 @@ function SequenceGenerator() {
             maxDocumentId = sequence.maxDocumentId;
             maxMessageId = sequence.maxMessageId;
             maxContactId = sequence.maxContactId;
+            maxUserId = sequence.maxUserId;
+            maxConversationId = sequence.maxConversationId;
         });
 }
 
@@ -43,6 +47,16 @@ SequenceGenerator.prototype.nextId = function(collectionType) {
             maxContactId++;
             updateObject = { maxContactId: maxContactId };
             nextId = maxContactId;
+            break;
+        case 'users':
+            maxUserId++;
+            updateObject = { maxUserId: maxUserId };
+            nextId = maxUserId;
+            break;
+        case 'conversations':
+            maxConversationId++;
+            updateObject = { maxConversationId: maxConversationId };
+            nextId = maxConversationId;
             break;
         default:
             return -1;

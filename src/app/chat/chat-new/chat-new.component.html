@@ -1,10 +1,7 @@
 <span class="chat">
     <div class="form-group panel">
         <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
-        <h1>Participants</h1>
-
-        
-
+            <h1>Participants</h1>
         <div class="row" id="groupList" style="min-height: 3rem;" dnd-droppable [dropZones]="['contactGroup']" (onDropSuccess)="addToGroup($event)">
 <div *ngFor="let contact of groupContacts; let i = index">
     <div>

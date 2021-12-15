@@ -5,6 +5,8 @@ var express = require('express');
 var router = express.Router();
 module.exports = router;
 
+var CurrentSender = "101"; // ToDo >> Hard Coded
+
 router.get('/', (req, res, next) => {
     Message.find()
         .populate()
@@ -17,13 +19,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    const maxMessageId = sequenceGenerator.nextId("messages");
-    console.log('maxMessageId', maxMessageId);
+    const maxChatId = sequenceGenerator.nextId("messages");
+    console.log('maxChatId', maxChatId);
     const message = new Message({
-        id: maxMessageId,
+        id: maxChatId,
         subject: req.body.subject,
         msgText: req.body.msgText,
-        sender: '101' // TODO: Hard-coded value
+        sender: CurrentSender // TODO: Hard-coded value
     });
 
     message.save()
@@ -45,7 +47,7 @@ router.put('/:id', (req, res, next) => {
         .then(message => {
             message.subject = req.body.subject;
             message.msgText = req.body.msgText;
-            message.sender = '101'; // TODO: Hard-coded value
+            message.sender = CurrentSender; // TODO: Hard-coded value
 
             Message.updateOne({
                     id: req.params.id

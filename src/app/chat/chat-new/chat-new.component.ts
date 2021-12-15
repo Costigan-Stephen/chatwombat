@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
+import { ContactService } from 'src/app/contacts/contact.service';
+import { environment } from 'src/environments/environment';
 
 import { Contact } from '../../contacts/contact.model';
-import { ContactService } from '../../contacts/contact.service';
+import { Conversation } from '../conversation.model';
+import { ConversationService } from '../conversation.service';
 
 @Component({
   selector: 'app-chat-new',
@@ -11,39 +16,46 @@ import { ContactService } from '../../contacts/contact.service';
   styleUrls: ['./chat-new.component.scss']
 })
 export class ChatNewComponent implements OnInit {
-
-  contact?: Contact; 
-  originalContact?: Contact; 
+  @Output() contactSelectedEvent: EventEmitter<Conversation> = new EventEmitter<Conversation>();
+  @Output() contactChangedEvent: EventEmitter<Conversation[]> = new EventEmitter<Conversation[]>();
+  contactListChangedEvent = new Subject<Conversation[]>();
+  subscription: Subscription;
+  HTTP_URL = environment.LOCALURL + "conversation";
+  maxContactId: number;
+  private conversations: Conversation [] =[];
   groupContacts: Contact[] = [];
+  groupItems: string[] = [];
+  contacts: Contact[] = [];
+  contact?: Contact; 
 
   id: string;
   contactAdded: boolean; // to show errors/successes when appropriate
   contactSelf: boolean;
   editMode: boolean = false;
 
+  selectedContact: string;
+  
   constructor(
     private contactService: ContactService,
+    private conversationService: ConversationService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) { 
+      this.contacts = this.contactService.getContacts();
+    //this.contactService.contactChangedEvent.subscribe((contacts) => this.contacts = contacts.slice());
+    this.subscription = this.contactService.contactListChangedEvent.subscribe((contactsList: Contact[]) => this.contacts = contactsList.slice());
+    }
 
   
   ngOnInit(): void {
     this.contactSelf = null;
     this.contactAdded = null;
-    this.route.params.subscribe((params: Params) => {
-      this.id = params.id;
-      if (!this.id) {
-        this.editMode = false;
-        return;
-      }
-      this.originalContact = this.contactService.getContact(this.id);
-      if (!this.originalContact)
-        return;
-
-      this.editMode = true;
-      this.contact = JSON.parse(JSON.stringify(this.originalContact));
-      if (this.contact?.group && this.contact?.group?.length > 0) 
-        this.groupContacts = JSON.parse(JSON.stringify(this.originalContact.group));  
+    
+    this.route.url.subscribe(() => {
+      var str = this.router.url;
+      this.id = str.replace(/\D/g, "");
+      // console.log("Route: " + this.route);
+      // console.log("Params: " + JSON.stringify(params));
+      // console.log("ID: "+this.id);
     });
   }
 
@@ -53,45 +65,18 @@ export class ChatNewComponent implements OnInit {
     this.groupContacts.splice(index, 1);
   }
 
-  onCancel(){ this.router.navigate(['contacts']); }
-
   onSubmit(form: NgForm): void{    
     const value = form.value;
-    const newContact = new Contact(value.id, value.name, value.email, value.phone, value.imageUrl, this.groupContacts);
-    if (this.editMode) {
-      this.contactService.updateContact(this.originalContact, newContact);
-    } else {
-      this.contactService.addContact(newContact);
-    }
-    this.router.navigate(['chat/'+this.id]);
-  }
-
-  isInvalidContact(newContact: Contact) {
-    this.contactSelf = false;
-    this.contactAdded = false;
-
-    if (!newContact) // new contact is empty
-      return true;
-    
-    if (this.contact && newContact.id === this.contact.id) {
-      this.contactSelf = true;
-      return true;
-    }
-    
-    for (let i = 0; i < this.groupContacts.length; i++){
-      if (newContact.id === this.groupContacts[i].id)
-        return true;
-    }
-    return false;
+    const newContact = new Conversation(value.id, this.groupItems);
+    console.log(newContact);
+    this.conversationService.addContact(newContact);
+    this.router.navigate(['chat/added']);
   }
 
   addToGroup($event: any) {
     const selectedContact: Contact = $event.dragData;
-    const invalidGroupContact = this.isInvalidContact(selectedContact);
-    if (invalidGroupContact){
-      this.contactAdded = false;
-      return;
-    }
+
+    this.groupItems.push(selectedContact.id);
     this.groupContacts.push(selectedContact);
     this.contactAdded = true;
   }

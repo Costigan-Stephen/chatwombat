@@ -33,8 +33,10 @@ export class ContactEditComponent implements OnInit {
   ngOnInit(): void {
     this.contactSelf = null;
     this.contactAdded = null;
-    this.route.params.subscribe((params: Params) => {
-      this.id = params.id;
+    
+    this.route.url.subscribe((params: Params) => {
+      var str = this.router.url;
+      this.id = str.replace(/\D/g, "");
       console.log("Route: " + this.route);
       console.log("Params: " + JSON.stringify(params));
       console.log("ID: "+this.id);

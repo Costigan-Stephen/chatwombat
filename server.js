@@ -17,6 +17,7 @@ var index = require('./server/routes/app');
 const messageRoutes = require('./server/routes/chat');
 const contactRoutes = require('./server/routes/contacts');
 const userRoutes = require('./server/routes/user');
+const convoRoutes = require('./server/routes/conversations');
 
 var app = express(); // create an instance of express
 
@@ -75,13 +76,15 @@ app.use(express.static(path.join(__dirname, 'dist/cms')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
-app.use('/messages', messageRoutes);
+app.use('/chat', messageRoutes);
 app.use('/contacts', contactRoutes);
+app.use('/conversations', convoRoutes);
+// app.use('/user', userRoutes);
 // app.use('/user', userRoutes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/cms/index.html'));
+    res.sendFile(path.join(__dirname, 'dist/chatwombat/index.html'));
 });
 
 // Define the port address and tell express to use this port

@@ -23,14 +23,14 @@ export class ChatService {
   messages: Chat [] = [];
 
   constructor(private HTTP: HttpClient, private contactService: ContactService) { 
-    this.messages = MOCKMESSAGES;
-    // this.HTTP.get<Chat[]>(this.HTTP_URL)
-    //   .subscribe((messagesList: Chat[]) => {
-    //     this.messages = messagesList;
-    //     this.messages.sort((a, b) => parseInt(a.id) > parseInt(b.id) ? 1 : 0);
-    //     this.messageListChangedEvent.next(this.messages.slice());
-    //   },
-    //   (error: any) => { console.log(error); });
+    //this.messages = MOCKMESSAGES;
+    this.HTTP.get<Chat[]>(this.HTTP_URL)
+      .subscribe((messagesList: Chat[]) => {
+        this.messages = messagesList;
+        this.messages.sort((a, b) => parseInt(a.id) > parseInt(b.id) ? 1 : 0);
+        this.messageListChangedEvent.next(this.messages.slice());
+      },
+      (error: any) => { console.log(error); });
     this.contacts = this.contactService.getContacts();
       //console.log(this.messages);
     // this.fetchPost();

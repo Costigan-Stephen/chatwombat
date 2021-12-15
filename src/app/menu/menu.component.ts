@@ -16,6 +16,6 @@ export class MenuComponent implements OnInit {
   }
 
   settings(){
-    this.route.navigate(['/chat/contacts/'+this.currentUser]);
+    this.route.navigate(['/chat/contacts/', this.currentUser]);
   }
 }
