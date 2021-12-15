@@ -10,7 +10,7 @@ export const MOCKMESSAGES: Chat [] = [
     id: '2', 
     subject: 'CIT 366 assignment 3', 
     msgText: 'When is assignment 3 due?', 
-    sender: '13'},
+    sender: '18'},
   {
     id: '3',
     subject: 'CIT 366 assignment 3 due date',
@@ -21,7 +21,7 @@ export const MOCKMESSAGES: Chat [] = [
     id: '4',
     subject: 'Assignment 3 help',
     msgText: 'Can I meet with you sometime? I need help with assignment 3.',
-    sender: '3'
+    sender: '18'
   },
   {
     id: '5', 

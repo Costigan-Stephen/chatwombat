@@ -1,1 +1,4 @@
-<p>contact-item works!</p>
+<a *ngIf="contact.id != messageSender" class="list-item clearfix" [routerLink]="['/chat/', contact.id]" routerLinkActive="active">
+    <img src="{{ contact.imageUrl | imageFolder }}" alt="{{ contact.name }}" class="img-responsive" style="max-height: 50px;">
+    <h4 class="list-group-item-heading">{{ contact.name }}</h4>
+</a>

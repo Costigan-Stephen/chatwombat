@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'chatwombat';
+  
+  navEmitter: string = 'chat';  //starting layout
+  title = 'ChatWombat';
+
+  viewSelect(navEmitter: string) {
+    this.navEmitter = navEmitter;
+  }
 }

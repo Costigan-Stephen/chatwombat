@@ -18,5 +18,8 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  position: fixed;
+  bottom: 20px;
+  width: 15%;
 }
 /*# sourceMappingURL=menu.component.css.map */

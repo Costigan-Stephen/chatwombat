@@ -1,0 +1,48 @@
+.direct-chat-text {
+    background-color: #d4d4d4;
+    padding: 5px 15px;
+    border-radius: 15px;
+    max-width: 100%;
+}
+
+.direct-chat-info {
+    display: flex;
+    font-weight: bold;
+}
+
+.flex-chat {
+    display: flex;
+    align-items: flex-start;
+}
+
+.direct-chat-img {
+    width: 50px;
+    height: 50px;
+    margin: 0 5px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.direct-chat-timestamp {
+    margin: 0 5px;
+    color: #b4b4b4;
+    font-weight: 500;
+}
+
+.right {
+    .direct-chat-text {
+        background-color: #a8e6ff;
+    }
+    .flex-chat {
+        flex-direction: row-reverse;
+    }
+    .direct-chat-info {
+        display: flex;
+        flex-direction: row-reverse;
+        &::before {
+            margin: 0 5px;
+            color: #0099ff;
+            content: "(You)";
+        }
+    }
+}

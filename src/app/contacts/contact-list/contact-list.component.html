@@ -1,1 +1,9 @@
-<p>contact-list works!</p>
+<div class="">
+    <input class="form-control" name="searchBox" placeholder="Search for a contact" (keyup)="search(searchBox.value)" #searchBox><br/>
+    <div class="pull-right pad-left-right">
+    </div>
+</div>
+<div class="contacts">
+    <app-contact-item *ngFor="let contact of contacts | contactsFilter:searchterm" [contact]="contact" dnd-draggable [dragEnabled]="true" [dragData]="contact" [dropZones]="['contactGroup']">
+    </app-contact-item>
+</div>

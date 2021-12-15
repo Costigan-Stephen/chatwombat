@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import {Contact} from './contact.model';
-//import {MOCKCONTACTS} from './MOCKCONTACTS';
+import {MOCKCONTACTS} from './MOCKCONTACTS';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,7 @@ export class ContactService {
 
    
   constructor(private HTTP: HttpClient) {
+    this.contacts = MOCKCONTACTS;
       // this.contacts = MOCKCONTACTS;
       // this.maxContactId = this.getMaxId();
       this.fetchContacts();

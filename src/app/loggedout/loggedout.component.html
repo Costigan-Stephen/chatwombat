@@ -1,0 +1,41 @@
+<div class="wrapper col-md-16">
+
+    <div class="container hex login">
+        <span class="logo">
+            <img class="img" src="../assets/images/wombat.svg"><br/>
+            <h1 class="title">Chat<span class="titleBold">Wombat</span></h1>
+        </span>
+        <div class="form">
+            <!-- <input type="text" name="username" id="username">
+            <button onclick="login()">Enter chat</button> -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form id="document-edit">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="subject">Username</label>
+                                <input type="text" id="subject" class="form-control" size="120" max="120" #subject>
+                            </div>
+
+                            <div class="col-sm-12 form-group">
+                                <label for="message">Password</label>
+                                <input type="text" id="message" class="form-control" max="255" size="120" #messageText>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn" type="button" (click)="login()">Login</button>
+                                <!-- <button class="btn" type="button" routerLink="/register">Sign Up</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <a class="signup" routerLink="/register">Create an account</a>
+            </div>
+        </div>
+        <div id="errMsg">
+            <!-- Blank area for login error messages -->
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

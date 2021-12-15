@@ -1,1 +1,65 @@
-/* No CSS *//*# sourceMappingURL=chat-item.component.css.map */
+.direct-chat-text {
+  background-color: #d4d4d4;
+  padding: 5px 15px;
+  border-radius: 15px;
+  max-width: 100%;
+}
+
+.direct-chat-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-weight: bold;
+}
+
+.flex-chat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.direct-chat-img {
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.direct-chat-timestamp {
+  margin: 0 5px;
+  color: #b4b4b4;
+  font-weight: 500;
+}
+
+.right .direct-chat-text {
+  background-color: #a8e6ff;
+}
+
+.right .flex-chat {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.right .direct-chat-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.right .direct-chat-info::before {
+  margin: 0 5px;
+  color: #0099ff;
+  content: "(You)";
+}
+/*# sourceMappingURL=chat-item.component.css.map */

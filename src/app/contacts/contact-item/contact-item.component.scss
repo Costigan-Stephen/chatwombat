@@ -1,0 +1,56 @@
+.list-group-item {
+    max-width: inherit;
+    background-color: #444;
+}
+
+.list-item {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    margin-top: 15px;
+    padding: 5px 0;
+    border-radius: 5% / 25%;
+    &:hover {
+        text-decoration: none;
+        transition: 0.4s ease;
+        background-color: #444;
+        color: rgb(181, 225, 255);
+    }
+    img {
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

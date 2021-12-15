@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChatService } from 'src/app/chat/chat.service';
+import { Contact } from '../contact.model';
 
 @Component({
   selector: 'app-contact-item',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-item.component.scss']
 })
 export class ContactItemComponent implements OnInit {
-
-  constructor() { }
+  @Input() contact: Contact;
+  messageSender: string;
+  constructor(private chatService: ChatService) { 
+    
+  }
 
   ngOnInit(): void {
+    this.messageSender = this.chatService.getUserId();
   }
 
 }
