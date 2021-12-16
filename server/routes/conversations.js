@@ -1,13 +1,12 @@
 const sequenceGenerator = require('./sequenceGenerator');
-const Contact = require('../models/conversations');
+const Conversation = require('../models/conversations');
 
 var express = require('express');
 var router = express.Router();
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-    Contact.find()
-        .populate('group')
+    Conversation.find()
         .then(contacts => {
             res.status(200).json(contacts);
         })
@@ -17,24 +16,28 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    const maxContactId = sequenceGenerator.nextId("conversations");
-    console.log("id: " + maxContactId);
+    const maxConversationId = sequenceGenerator.nextId("conversations");
+    console.log("id: " + maxConversationId);
     console.log("ct: " + JSON.stringify(req.body));
-    const contact = new Contact({
-        id: maxContactId,
-        contacts: req.body.groupContacts
-    });
-
-    contact.save()
-        .then(createdContact => {
-            res.status(201).json({
-                message: 'Conversation added successfully',
-                contact: createdContact
-            });
-        })
-        .catch(error => {
-            errorCatch(error, res);
+    if (maxConversationId) {
+        const contact = new Conversation({
+            id: maxConversationId,
+            contacts: req.body.contactIds
         });
+
+        contact.save()
+            .then(createdContact => {
+                res.status(201).json({
+                    message: 'Conversation added successfully',
+                    contacts: createdContact
+                });
+            })
+            .catch(error => {
+                errorCatch(error, res);
+            });
+    } else {
+        console.log("Error retrieving SequenceID");
+    }
 });
 
 // router.put('/:id', (req, res, next) => {
@@ -70,11 +73,11 @@ router.post('/', (req, res, next) => {
 // });
 
 router.delete("/:id", (req, res, next) => {
-    Contact.findOne({
+    Conversation.findOne({
             id: req.params.id
         })
         .then(contact => {
-            Contact.deleteOne({
+            Conversation.deleteOne({
                     id: req.params.id
                 })
                 .then(result => {

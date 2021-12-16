@@ -42,14 +42,14 @@ export class ContactService {
   fetchContacts(){
     this.HTTP.get<Contact[]>(this.HTTP_URL)
       .subscribe((contactList: Contact[]) => {
-        console.log(contactList);
+        // console.log(contactList);
         this.contacts = contactList;
         this.maxContactId = this.getMaxId();
         this.contacts.sort((a, b) => parseInt(a.id) > parseInt(b.id) ? 1 : 0);
         this.contactListChangedEvent.next(this.contacts.slice());
       },
       (error) => { console.log(error); });
-      console.log(this.contacts);
+      // console.log(this.contacts);
   }
 
   getContacts(): Contact[]{ 

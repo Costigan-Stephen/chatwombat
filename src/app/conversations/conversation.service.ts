@@ -3,10 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, Observer, Subject } from 'rxjs';
 
-import { MOCKMESSAGES } from './MOCKMESSAGES';
+// import { MOCKMESSAGES } from '../chat/MOCKMESSAGES';
 import { Conversation } from './conversation.model';
-import { Contact } from '../contacts/contact.model';
-import { ContactService } from '../contacts/contact.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +18,9 @@ export class ConversationService {
   HTTP_URL = environment.LOCALURL + "conversations";
   maxContactId: number;
   private contacts: Conversation [] =[];
-   //private contactsListClone: Contact [] =[];
 
    
   constructor(private HTTP: HttpClient) {
-    //this.contacts = MOCKCONTACTS;
-      // this.contacts = MOCKCONTACTS;
-      // this.maxContactId = this.getMaxId();
       this.fetchContacts();
    }
 
@@ -43,14 +37,13 @@ export class ConversationService {
   fetchContacts(){
     this.HTTP.get<Conversation[]>(this.HTTP_URL)
       .subscribe((contactList: Conversation[]) => {
-        console.log(contactList);
+        // console.log("FETCH >> " + JSON.stringify(contactList));
         this.contacts = contactList;
         this.maxContactId = this.getMaxId();
         this.contacts.sort((a, b) => parseInt(a.id) > parseInt(b.id) ? 1 : 0);
         this.contactListChangedEvent.next(this.contacts.slice());
       },
       (error) => { console.log(error); });
-      console.log(this.contacts);
   }
 
   getContacts(): Conversation[]{ 
@@ -126,6 +119,22 @@ export class ConversationService {
           this.contactListChangedEvent.next(this.contacts.slice());
         }
       );
+  }
+
+  findConversations(id: string) {
+    let convos = [];
+    this.fetchContacts();
+    // console.log(this.contacts);
+    for (var i = 0; i < this.contacts.length; i++){
+      var contact = this.contacts[i];
+      for (var z = 0; z < contact.contacts.length; z++){
+        if (contact.contacts[z] == id) {
+          console.log("True: " + z +" " + contact.contacts[z]);
+          convos.push(contact);
+        }
+      }
+    }
+    return convos;
   }
 
 }

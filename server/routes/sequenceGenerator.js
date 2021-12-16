@@ -17,13 +17,14 @@ function SequenceGenerator() {
                     error: err
                 });
             }
+            var jsn = JSON.parse(JSON.stringify(sequence)); // Without this, it returned nan on later ones
 
-            sequenceId = sequence._id;
-            maxDocumentId = sequence.maxDocumentId;
-            maxMessageId = sequence.maxMessageId;
-            maxContactId = sequence.maxContactId;
-            maxUserId = sequence.maxUserId;
-            maxConversationId = sequence.maxConversationId;
+            sequenceId = jsn._id;
+            maxDocumentId = jsn.maxDocumentId;
+            maxMessageId = jsn.maxMessageId;
+            maxContactId = jsn.maxContactId;
+            maxUserId = jsn.maxUserId;
+            maxConversationId = jsn.maxConversationId;
         });
 }
 
@@ -32,31 +33,32 @@ SequenceGenerator.prototype.nextId = function(collectionType) {
     var updateObject = {};
     var nextId;
 
+
     switch (collectionType) {
-        case 'documents':
-            maxDocumentId++;
-            updateObject = { maxDocumentId: maxDocumentId };
-            nextId = maxDocumentId;
-            break;
-        case 'messages':
+        // case "documents":
+        //     maxDocumentId++;
+        //     updateObject = { maxDocumentId: maxDocumentId };
+        //     nextId = maxDocumentId;
+        //     break;
+        case "messages":
             maxMessageId++;
             updateObject = { maxMessageId: maxMessageId };
             nextId = maxMessageId;
             break;
-        case 'contacts':
+        case "contacts":
             maxContactId++;
             updateObject = { maxContactId: maxContactId };
             nextId = maxContactId;
             break;
-        case 'users':
-            maxUserId++;
-            updateObject = { maxUserId: maxUserId };
-            nextId = maxUserId;
-            break;
-        case 'conversations':
+        case "conversations":
             maxConversationId++;
             updateObject = { maxConversationId: maxConversationId };
             nextId = maxConversationId;
+            break;
+        case "users":
+            maxUserId++;
+            updateObject = { maxUserId: maxUserId };
+            nextId = maxUserId;
             break;
         default:
             return -1;

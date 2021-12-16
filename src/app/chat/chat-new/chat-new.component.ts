@@ -7,8 +7,9 @@ import { ContactService } from 'src/app/contacts/contact.service';
 import { environment } from 'src/environments/environment';
 
 import { Contact } from '../../contacts/contact.model';
-import { Conversation } from '../conversation.model';
-import { ConversationService } from '../conversation.service';
+import { ChatService } from '../chat.service';
+import { Conversation } from '../../conversations/conversation.model';
+import { ConversationService } from '../../conversations/conversation.service';
 
 @Component({
   selector: 'app-chat-new',
@@ -38,11 +39,13 @@ export class ChatNewComponent implements OnInit {
   constructor(
     private contactService: ContactService,
     private conversationService: ConversationService,
+    private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute) { 
       this.contacts = this.contactService.getContacts();
-    //this.contactService.contactChangedEvent.subscribe((contacts) => this.contacts = contacts.slice());
-    this.subscription = this.contactService.contactListChangedEvent.subscribe((contactsList: Contact[]) => this.contacts = contactsList.slice());
+      this.groupItems.push(chatService.getUserId()); // Add current user
+      //this.contactService.contactChangedEvent.subscribe((contacts) => this.contacts = contacts.slice());
+      this.subscription = this.contactService.contactListChangedEvent.subscribe((contactsList: Contact[]) => this.contacts = contactsList.slice());
     }
 
   
@@ -53,9 +56,6 @@ export class ChatNewComponent implements OnInit {
     this.route.url.subscribe(() => {
       var str = this.router.url;
       this.id = str.replace(/\D/g, "");
-      // console.log("Route: " + this.route);
-      // console.log("Params: " + JSON.stringify(params));
-      // console.log("ID: "+this.id);
     });
   }
 

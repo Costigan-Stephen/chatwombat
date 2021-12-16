@@ -4,10 +4,7 @@
         <h1 class="title">Chat Wombat</h1>
     </div>
     <div class="convos">
-        <div *ngIf="conversations?.length < 1" class="noconvo">
-            <h2>No conversations</h2>
-            <a class="btn btn-cust" href="chat/newchat">Let's start one!</a>
-        </div>
+        <app-conversations></app-conversations>
     </div>
 
     <ul class="list-unstyled iconlist">

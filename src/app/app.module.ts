@@ -34,6 +34,9 @@ import { LoggedoutComponent } from './loggedout/loggedout.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { ContactSuccessComponent } from './contacts/contact-success/success.component';
+import { ConversationsComponent } from './conversations/conversations.component';
+import { ConversationListComponent } from './conversations/conversation-list/conversation-list.component';
+import { ConversationItemComponent } from './conversations/conversation-item/conversation-item.component';
 
 
 
@@ -58,7 +61,10 @@ import { ContactSuccessComponent } from './contacts/contact-success/success.comp
     FooterComponent,
     RegisterComponent,
     ChatNewComponent,
-    ContactSuccessComponent
+    ContactSuccessComponent,
+    ConversationsComponent,
+    ConversationListComponent,
+    ConversationItemComponent
   ],
   imports: [
     BrowserModule,

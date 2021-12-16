@@ -1,0 +1,5 @@
+<a class="list-item clearfix" (click)="navContact(conversation.id)">
+    <span *ngFor="let contact of contacts">
+        <img  src="{{ contact.imageUrl }}" alt="{{ contact.name }}" class="img-responsive" style="max-height: 50px;">
+    </span>
+</a>

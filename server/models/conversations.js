@@ -6,7 +6,8 @@ const conversationSchema = mongoose.Schema({
         required: true
     },
     contacts: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        required: true,
         ref: 'Contact'
     }]
 });

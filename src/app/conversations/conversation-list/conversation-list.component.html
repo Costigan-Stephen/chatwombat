@@ -1,0 +1,10 @@
+<div *ngIf="conversations?.length < 1" class="noconvo">
+    <h2>No conversations</h2>
+    <a class="btn btn-cust" href="chat/newchat">Let's start one!</a>
+</div>
+<div *ngIf="conversations?.length">
+    <div class="contacts">
+        <h3 style="color: white;">Conversations</h3>
+        <app-conversation-item *ngFor="let convo of conversations" [conversation]="convo"></app-conversation-item>
+    </div>
+</div>

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, Observer, Subject } from 'rxjs';
 
-import { MOCKMESSAGES } from './MOCKMESSAGES';
 import { Chat } from './chat.model';
 import { Contact } from '../contacts/contact.model';
 import { ContactService } from '../contacts/contact.service';
@@ -32,9 +31,6 @@ export class ChatService {
       },
       (error: any) => { console.log(error); });
     this.contacts = this.contactService.getContacts();
-      //console.log(this.messages);
-    // this.fetchPost();
-    // this.messageListChangedEvent.next(this.messages.slice());
   }
 
   fetchPost(){
@@ -51,7 +47,7 @@ export class ChatService {
   }
 
   getUserId(): string{
-    return "18";
+    return "101";
   }
 
   getMessage(id: string): Chat{ 

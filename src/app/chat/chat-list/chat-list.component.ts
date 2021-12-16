@@ -16,7 +16,6 @@ export class ChatListComponent implements OnInit {
 
   ngOnInit(): void {
     this.messages = this.chatService.getMessages();
-
     this.subscription = this.chatService.messageChangedEvent.subscribe((messageList: Chat[])=> this.messages = messageList);
   }
 
