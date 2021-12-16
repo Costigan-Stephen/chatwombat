@@ -67,15 +67,15 @@ export class ContactService {
   }
 
   deleteContact(contact: Contact): void {
-    if ( !contact ) return; 
-
+    console.log(contact);
     const position = this.contacts.indexOf(contact);
-    if ( position < 0 ) return; 
+    console.log(position);
 
     this.HTTP.delete(this.HTTP_URL + '/' + contact.id)
       .subscribe(
         () => {
-          this.contacts.splice(position, 1);
+          if ( position > 0 )
+            this.contacts.splice(position, 1);
           this.contactListChangedEvent.next(this.contacts.slice());
         }
       );

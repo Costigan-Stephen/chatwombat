@@ -51,6 +51,7 @@
                         </div>
                         <div *ngIf="contact?.name">
                             <button class="btn btn-cust" [disabled]="!f.valid" type="submit">Update Contact</button>
+                            <div style="margin-left: 10px;" class="btn btn-cust" (click)="onDeleteClick()">Delete Contact</div>
                         </div>
                         
                     </div>

@@ -102,4 +102,10 @@ export class ContactEditComponent implements OnInit {
     this.contactAdded = true;
   }
 
+  onDeleteClick(){
+    console.log(this.contact);
+    this.contactService.deleteContact(this.contact);
+    this.router.navigate(['chat/']);
+  }
+
 }
