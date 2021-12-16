@@ -39,6 +39,7 @@ export class ConversationItemComponent implements OnInit {
 
   navContact(userID: string){
     this.route.navigate(['/chat/', userID]);
+    setTimeout(() => { window.location.reload(); }, 1);
   }
 
 }

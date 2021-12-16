@@ -27,7 +27,7 @@ export class ConversationListComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.chatService.getUserId();
       this.conversations = this.conversationService.findConversations(this.currentUser);
-    console.log(this.conversations);
+    //console.log(this.conversations);
   }
 
   ngOnDestroy(): void { this.subscription.unsubscribe(); }

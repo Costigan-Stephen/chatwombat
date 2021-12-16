@@ -71,6 +71,7 @@ export class ChatNewComponent implements OnInit {
     console.log(newContact);
     this.conversationService.addContact(newContact);
     this.router.navigate(['chat/added']);
+    setTimeout(() => { window.location.reload(); }, 5);
   }
 
   addToGroup($event: any) {

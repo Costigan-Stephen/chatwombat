@@ -12,11 +12,16 @@ import { ChatService } from '../chat.service';
 export class ChatListComponent implements OnInit {
   subscription: Subscription;
   messages: Chat[] = [];
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService) {
+    this.messages = this.chatService.getMessages();
+    this.subscription = this.chatService.messageChangedEvent.subscribe((messageList: Chat[])=> this.messages = messageList);
+    //setTimeout(() => { this.ngOnInit() }, 1);
+  }
 
   ngOnInit(): void {
     this.messages = this.chatService.getMessages();
     this.subscription = this.chatService.messageChangedEvent.subscribe((messageList: Chat[])=> this.messages = messageList);
+    setTimeout(() => { this.ngOnInit() }, 2);
   }
 
   onAddMessage(message: Chat) {
