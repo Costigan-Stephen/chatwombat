@@ -52,6 +52,10 @@ export class ConversationService {
     return this.contacts.slice();
   }
 
+  getContactList(): Conversation[]{ 
+    return this.contacts;
+  }
+
   getContact(id: string): Conversation{ 
     if(!this.contacts)
       this.fetchContacts();
@@ -92,7 +96,6 @@ export class ConversationService {
       (this.HTTP_URL, newContact, { headers: headers })
       .subscribe(
         (responseData) => {
-          // add new document to documents
           this.contacts.push(responseData.newContact);
           this.contactListChangedEvent.next(this.contacts.slice());
           console.log("Convo:" + responseData.newContact);
