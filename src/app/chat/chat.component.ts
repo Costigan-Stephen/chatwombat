@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
   }
 
   onSendMessage() {
+    console.log("Sending message");
     if(this.messageText.nativeElement.value){
       const id = new Date().getTime().toString();
       var str = this.router.url;
@@ -37,6 +38,21 @@ export class ChatComponent implements OnInit {
       this.onClear();
     }
   }
+  // onSubmit(form: NgForm): void{    
+  //   const value = form.value;
+  //   const id = new Date().getTime().toString();
+  //   var str = this.router.url;
+  //   const convoid = str.replace(/\D/g, "");
+  //   const newMessage = new Chat(
+  //           id, 
+  //           "chatwombat", 
+  //           value.message, 
+  //           this.currentSender,
+  //           convoid
+  //         );
+  //   this.chatService.addMessage(newMessage);
+  //   this.onClear(form: NgForm);
+  // }
 
   onClear() {
     this.messageText.nativeElement.value = '';

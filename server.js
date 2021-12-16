@@ -76,7 +76,7 @@ app.use(express.static(path.join(__dirname, 'dist/cms')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
-app.use('/chat', messageRoutes);
+app.use('/chats', messageRoutes);
 app.use('/contacts', contactRoutes);
 app.use('/conversations', conversationRoutes);
 // app.use('/user', userRoutes);

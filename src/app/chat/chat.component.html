@@ -3,9 +3,9 @@
 </span>
 <div class="box-footer">
     <form action="#" method="post">
-        <div class="input-group"> <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+        <div class="input-group"> <input type="text" name="message" placeholder="Type Message ..." class="form-control" #messageText>
             <span class="input-group-btn"> 
-                <button type="button" class="btn btn-primary btn-flat"><i class="fas fa-paper-plane"></i></button> 
+                <button type="button" class="btn btn-primary btn-flat" (click)="onSendMessage()"><i class="fas fa-paper-plane"></i></button> 
             </span>
         </div>
     </form>

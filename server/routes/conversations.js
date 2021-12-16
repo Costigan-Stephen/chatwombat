@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
     if (maxConversationId) {
         const contact = new Conversation({
             id: maxConversationId,
-            contacts: req.body.contactIds
+            contacts: req.body.contacts
         });
 
         contact.save()

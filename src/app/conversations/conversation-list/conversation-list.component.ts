@@ -19,13 +19,15 @@ export class ConversationListComponent implements OnInit {
     private route:Router, 
     private conversationService: ConversationService, 
     private chatService : ChatService) { 
-      this.currentUser = this.chatService.getUserId();
-      this.conversations = this.conversationService.findConversations(this.currentUser);
+      
       this.subscription = this.conversationService.contactListChangedEvent.subscribe((contactsList: Conversation[]) => this.conversations = contactsList.slice());
+      
     }
 
   ngOnInit(): void {
-    
+    this.currentUser = this.chatService.getUserId();
+      this.conversations = this.conversationService.findConversations(this.currentUser);
+    console.log(this.conversations);
   }
 
   ngOnDestroy(): void { this.subscription.unsubscribe(); }

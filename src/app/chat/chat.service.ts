@@ -6,6 +6,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { Chat } from './chat.model';
 import { Contact } from '../contacts/contact.model';
 import { ContactService } from '../contacts/contact.service';
+import { ConversationService } from '../conversations/conversation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,14 @@ export class ChatService {
 
   contacts: Contact [] =[];
   //HTTP_URL  = environment.apiURL + "/messages.json";
-  HTTP_URL = environment.LOCALURL + "chat";
+  HTTP_URL = environment.LOCALURL + "chats";
 
   messages: Chat [] = [];
 
-  constructor(private HTTP: HttpClient, private contactService: ContactService) { 
+  constructor(
+    private HTTP: HttpClient, 
+    private conversationService: ConversationService,
+    private contactService: ContactService) { 
     //this.messages = MOCKMESSAGES;
     this.HTTP.get<Chat[]>(this.HTTP_URL)
       .subscribe((messagesList: Chat[]) => {
@@ -82,6 +86,7 @@ export class ChatService {
   }
 
   addMessage(message: Chat): void {
+    console.log(message);
     if (!message.msgText || !message.subject) 
       return;
 

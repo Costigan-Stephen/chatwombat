@@ -1,11 +1,12 @@
-<div class="direct-chat-msg" [ngClass]="{'right' :  message.sender === currentUser }">
+<div *ngIf="message.conversation == conversation" class="direct-chat-msg" [ngClass]="{'right' :  message.sender === currentUser }">
     <div class="direct-chat-info clearfix">
         <span class="direct-chat-name pull-right">{{ messageSender }}</span>
-        <span class="direct-chat-timestamp pull-left">Timestamp</span>
+
     </div>
     <div class="flex-chat">
         <img class="direct-chat-img" src="{{ imagesrc }}" alt="{{ messageSender }}">
         <div class="direct-chat-text">{{ message.msgText }}</div>
-        <span style="display:none">{{ message.id }}</span>
+        <span style="display:none">{{ message.id }}</span><br/>
+        <div *ngIf="message.timestamp" class="direct-chat-timestamp pull-left">{{ message.timestamp }}</div>
     </div>
 </div>

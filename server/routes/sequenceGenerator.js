@@ -40,7 +40,7 @@ SequenceGenerator.prototype.nextId = function(collectionType) {
         //     updateObject = { maxDocumentId: maxDocumentId };
         //     nextId = maxDocumentId;
         //     break;
-        case "messages":
+        case "chat":
             maxMessageId++;
             updateObject = { maxMessageId: maxMessageId };
             nextId = maxMessageId;
@@ -55,11 +55,11 @@ SequenceGenerator.prototype.nextId = function(collectionType) {
             updateObject = { maxConversationId: maxConversationId };
             nextId = maxConversationId;
             break;
-        case "users":
-            maxUserId++;
-            updateObject = { maxUserId: maxUserId };
-            nextId = maxUserId;
-            break;
+            // case "users":
+            //     maxUserId++;
+            //     updateObject = { maxUserId: maxUserId };
+            //     nextId = maxUserId;
+            //     break;
         default:
             return -1;
     }
