@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loggedout',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoggedoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route:Router) { }
 
   ngOnInit(): void {
   }
@@ -17,6 +18,6 @@ export class LoggedoutComponent implements OnInit {
   }
 
   login() {
-
+    this.route.navigate(['/chat/']);
   }
 }
